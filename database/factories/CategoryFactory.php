@@ -1,0 +1,31 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CategoryFactory extends Factory
+{
+    protected $model = Category::class;
+
+    public function definition(): array
+    {
+        $names = [
+            'Elektronik',
+            'Fashion',
+            'Aksesoris',
+            'Peralatan Rumah',
+            'Olahraga',
+            'Kecantikan',
+            'Buku',
+            'Makanan',
+        ];
+
+        return [
+            'name' => fake()->randomElement($names)
+                . ' ' . fake()->unique()->numberBetween(1, 999999),
+            'description' => fake()->sentence(),
+        ];
+    }
+}

@@ -1,59 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# E-Commerce DB + Secure Auth
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Proyek Tugas Rutin 11 mata kuliah Pemrograman Web. Aplikasi ini dikembangkan menggunakan Laravel untuk menerapkan pengelolaan database e-commerce, autentikasi pengguna, otorisasi berbasis role, dan panel administrasi.
 
-## About Laravel
+## Teknologi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Laravel 12
+- PHP 8.2
+- MySQL
+- Laravel Breeze (Blade)
+- Laravel Eloquent ORM
+- Filament 3
+- Vite
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fitur
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Database dan Eloquent
+- Tujuh tabel e-commerce: `categories`, `products`, `orders`, `order_items`, `payments`, `carts`, dan `cart_items`.
+- Relasi antarmodel menggunakan Eloquent.
+- Factory dan seeder untuk menghasilkan minimal 50 data produk.
+- Scope `active()` untuk mengambil produk aktif.
+- Contoh query menggunakan Laravel Tinker.
+- Eager loading menggunakan `with('category')`.
 
-## Learning Laravel
+### 2. Autentikasi dan Keamanan
+- Register, login, dan logout menggunakan Laravel Breeze.
+- Middleware untuk membatasi akses berdasarkan role `admin`, `editor`, dan `user`.
+- `PostPolicy` untuk mengatur izin edit dan hapus produk.
+- Pengujian akses berdasarkan role pengguna.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 3. Bonus: Filament Admin Panel
+- Panel administrasi di `/admin`.
+- Pengelolaan produk dan kategori.
+- Form tambah dan edit data.
+- Tabel data dengan pencarian, pengurutan, dan filter.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Struktur Database
 
-## Laravel Sponsors
+| Tabel | Fungsi |
+|---|---|
+| `users` | Menyimpan data pengguna dan role |
+| `categories` | Menyimpan kategori produk |
+| `products` | Menyimpan data produk |
+| `orders` | Menyimpan transaksi pesanan |
+| `order_items` | Menyimpan detail produk dalam pesanan |
+| `payments` | Menyimpan informasi pembayaran |
+| `carts` | Menyimpan keranjang pengguna |
+| `cart_items` | Menyimpan produk dalam keranjang |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Persyaratan
 
-### Premium Partners
+- PHP 8.2 atau lebih baru
+- Composer
+- Node.js dan npm
+- MySQL atau MariaDB
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Cara Menjalankan
 
-## Contributing
+1. Clone repository ini.
+2. Masuk ke direktori proyek.
+3. Instal dependensi PHP:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   composer install
+   ```
 
-## Code of Conduct
+4. Salin `.env.example` menjadi `.env`, kemudian sesuaikan konfigurasi database.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```bash
+   cp .env.example .env
+   ```
 
-## Security Vulnerabilities
+   Pada Windows, file tersebut juga dapat disalin secara manual melalui File Explorer.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. Buat database bernama `laravel_p11` di MySQL.
+6. Generate application key:
 
-## License
+   ```bash
+   php artisan key:generate
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7. Jalankan migrasi dan seeder:
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+8. Instal dependensi frontend dan build aset:
+
+   ```bash
+   npm install
+   npm run build
+   ```
+
+9. Jalankan server:
+
+   ```bash
+   php artisan serve
+   ```
+
+10. Buka `http://127.0.0.1:8000` di browser.
+
+## Akses Aplikasi
+
+- Aplikasi: `http://127.0.0.1:8000`
+- Login: `/login`
+- Register: `/register`
+- Panel Filament: `/admin`
+- Pengujian akses admin: `/admin-area`
+- Pengujian akses editor: `/editor-area`
+- Pengujian akses user: `/user-area`
+
+Akun pengguna perlu dibuat dan role-nya dikonfigurasi sesuai kebutuhan pengujian. Jangan menyimpan password asli atau file `.env` di repository.
+
+## Catatan
+
+Proyek ini dibuat untuk keperluan pembelajaran Pemrograman Web. Query Tinker, pengujian autentikasi, pembatasan akses, serta panel administrasi dapat digunakan sebagai bahan demonstrasi dan dokumentasi tugas.
